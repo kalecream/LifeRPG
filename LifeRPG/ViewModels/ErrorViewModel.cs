@@ -1,6 +1,6 @@
 using System;
 
-namespace LifeRPG.Models
+namespace LifeRPG.ViewModels
 {
     public class ErrorViewModel
     {

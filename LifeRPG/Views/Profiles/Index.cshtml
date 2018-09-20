@@ -1,0 +1,37 @@
+﻿@model IEnumerable<LifeRPG.Models.Profile>
+@using System.Text.RegularExpressions;
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model=>model.Setting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(Regex.Replace(item.Setting, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))
+            </td>
+            <td>
+                @item.Value
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Setting">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
