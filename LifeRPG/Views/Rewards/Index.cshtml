@@ -45,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantityAvailable)
+                @(item.QuantityAvailable>-1?item.QuantityAvailable+"": "∞")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClaimTotal)

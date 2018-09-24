@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LifeRPG.Models
 {
@@ -20,8 +21,11 @@ namespace LifeRPG.Models
         public long? CostIncrement { get; set; }
         public long? AddsToInventory { get; set; }
         public string Category { get; set; }
+        [NotMapped]
         public DateTime LastUpdatedDisplay { get { return (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(TimeLastUpdated ?? 0).ToLocalTime()); } }
+        [NotMapped]
         public DateTime TimeUpdatedDisplay { get { return (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(TimeUpdated ?? 0).ToLocalTime()); } }
+        [NotMapped]
         public DateTime TimeCreatedDisplay { get { return (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(TimeCreated ?? 0).ToLocalTime()); } }
     }
 }

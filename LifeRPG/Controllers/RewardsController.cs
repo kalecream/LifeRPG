@@ -23,47 +23,7 @@ namespace LifeRPG.Controllers
         {
             return View(await _context.Rewards.ToListAsync());
         }
-
-        // GET: Rewards/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var rewards = await _context.Rewards
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (rewards == null)
-            {
-                return NotFound();
-            }
-
-            return View(rewards);
-        }
-
-        // GET: Rewards/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Rewards/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,QuantityAvailable,ClaimTotal,Cost,TimeCreated,TimeUpdated,TimeLastUpdated,IconAsset,IsCostIncrementing,CostIncrement,AddsToInventory,Category")] Rewards rewards)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(rewards);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(rewards);
-        }
-
+      
         // GET: Rewards/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -85,9 +45,9 @@ namespace LifeRPG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,QuantityAvailable,ClaimTotal,Cost,TimeCreated,TimeUpdated,TimeLastUpdated,IconAsset,IsCostIncrementing,CostIncrement,AddsToInventory,Category")] Rewards rewards)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Description,QuantityAvailable,Cost,TimeCreated,ClaimTotal,IconAsset,IsCostIncrementing,CostIncrement,AddsToInventory,Category")] Rewards reward)
         {
-            if (id != rewards.Id)
+            if (id != reward.Id)
             {
                 return NotFound();
             }
@@ -96,12 +56,15 @@ namespace LifeRPG.Controllers
             {
                 try
                 {
-                    _context.Update(rewards);
+                    long updated = (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+                    reward.TimeLastUpdated = updated;
+                    reward.TimeUpdated = updated;
+                    _context.Update(reward);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RewardsExists(rewards.Id))
+                    if (!RewardsExists(reward.Id))
                     {
                         return NotFound();
                     }
@@ -112,7 +75,7 @@ namespace LifeRPG.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(rewards);
+            return View(reward);
         }
 
         // GET: Rewards/Delete/5

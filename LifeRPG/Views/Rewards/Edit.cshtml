@@ -9,65 +9,67 @@
 <h4>Rewards</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+        <form asp-action="Edit" class="form form-horizontal">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="Name" class="form-control" /></div>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <label asp-for="Description" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="Description" class="form-control" /></div>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuantityAvailable" class="control-label"></label>
-                <input asp-for="QuantityAvailable" class="form-control" />
+                <label asp-for="QuantityAvailable" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="QuantityAvailable" class="form-control" /></div>
                 <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
             </div>          
             <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
+                <label asp-for="Cost" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="Cost" class="form-control" /></div>
                 <span asp-validation-for="Cost" class="text-danger"></span>
             </div>
+            <input asp-for="ClaimTotal" hidden />
+            <input asp-for="TimeCreated" hidden />
             <div class="form-group">
-                <label asp-for="TimeCreated" class="control-label"></label>
-                <div class="form-control-static">@(Model.TimeCreatedDisplay == DateTime.UnixEpoch.ToLocalTime() ? "Never Updated" : Model.TimeCreatedDisplay.ToString())</div>
+                <label asp-for="TimeCreated" class="control-label col-sm-3"></label>
+                <div class="form-control-static col-sm-3">@(Model.TimeCreatedDisplay == DateTime.UnixEpoch.ToLocalTime() ? "New" : Model.TimeCreatedDisplay.ToString())</div>
             </div>
             <div class="form-group">
-                <label asp-for="TimeUpdated" class="control-label"></label>
-                <div class="form-control-static">@(Model.TimeUpdatedDisplay==DateTime.UnixEpoch.ToLocalTime()?"Never Updated":Model.TimeUpdatedDisplay.ToString())</div>
+                <label asp-for="TimeUpdated" class="control-label col-sm-3"></label>
+                <div class="form-control-static col-sm-3">@(Model.TimeUpdatedDisplay==DateTime.UnixEpoch.ToLocalTime()?"Never Updated":Model.TimeUpdatedDisplay.ToString())</div>
             </div>
             <div class="form-group">
-                <label asp-for="TimeLastUpdated" class="control-label"></label>
-                <div class="form-control-static">@(Model.LastUpdatedDisplay==DateTime.UnixEpoch.ToLocalTime()?"Never Updated":Model.LastUpdatedDisplay.ToString())</div>
+                <label asp-for="TimeLastUpdated" class="control-label col-sm-3"></label>
+                <div class="form-control-static col-sm-3">@(Model.LastUpdatedDisplay==DateTime.UnixEpoch.ToLocalTime()?"Never Updated":Model.LastUpdatedDisplay.ToString())</div>
             </div>
             <div class="form-group">
-                <label asp-for="IconAsset" class="control-label"></label>
-                <input asp-for="IconAsset" class="form-control" />
+                <label asp-for="IconAsset" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="IconAsset" class="form-control" /></div>
                 <span asp-validation-for="IconAsset" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsCostIncrementing" class="control-label"></label>
-                <input asp-for="IsCostIncrementing" class="form-control" />
+                <label asp-for="IsCostIncrementing" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="IsCostIncrementing" class="form-control" /></div>
                 <span asp-validation-for="IsCostIncrementing" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CostIncrement" class="control-label"></label>
-                <input asp-for="CostIncrement" class="form-control" />
+                <label asp-for="CostIncrement" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="CostIncrement" class="form-control" /></div>
                 <span asp-validation-for="CostIncrement" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AddsToInventory" class="control-label"></label>
-                <input asp-for="AddsToInventory" class="form-control" />
+                <label asp-for="AddsToInventory" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="AddsToInventory" class="form-control" /></div>
                 <span asp-validation-for="AddsToInventory" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <label asp-for="Category" class="control-label col-sm-3"></label>
+                <div class="col-sm-3"><input asp-for="Category" class="form-control" /></div>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
