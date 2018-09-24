@@ -1,4 +1,4 @@
-﻿@model LifeRPG.Models.Profile
+﻿@model LifeRPG.ViewModels.ProfileViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -7,18 +7,48 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Profile</h4>
+    <h4>ProfileViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Value)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Value)
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Avatar)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RewardPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RewardPoints)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.XP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.XP)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Setting">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

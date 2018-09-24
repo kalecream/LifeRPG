@@ -1,8 +1,7 @@
-﻿@model IEnumerable<LifeRPG.Models.Profile>
-@using System.Text.RegularExpressions;
+﻿@model IEnumerable<LifeRPG.ViewModels.ProfileViewModel>
 
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profiles";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -11,10 +10,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model=>model.Setting)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Value)
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RewardPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.XP)
             </th>
             <th></th>
         </tr>
@@ -23,13 +34,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @(Regex.Replace(item.Setting, @"(^\w)|(\s\w)", m => m.Value.ToUpper()))
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @item.Value
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Setting">Edit</a>
+                @Html.DisplayFor(modelItem => item.Avatar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RewardPoints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.XP)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
             </td>
         </tr>
 }

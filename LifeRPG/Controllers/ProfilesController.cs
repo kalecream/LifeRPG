@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LifeRPG.Models;
+using LifeRPG.ViewModels;
 
 namespace LifeRPG.Controllers
 {
@@ -18,66 +19,88 @@ namespace LifeRPG.Controllers
             _context = context;
         }
 
-        // GET: Profiles
-        public async Task<IActionResult> Index()
+        // GET: ProfileViewModels
+        public IActionResult Index()
         {
-            return View(await _context.Profile.ToListAsync());
-        }        
-
-        // GET: Profiles/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
+            List<Profile> profile = _context.Profile.ToList();
+            List<Missions> missions = _context.Missions.ToList();
+            ProfileViewModel model = new ProfileViewModel()
             {
-                return NotFound();
-            }
-
-            var profile = await _context.Profile.FindAsync(id);
-            if (profile == null)
-            {
-                return NotFound();
-            }
-            return View(profile);
+                Id = 1,
+                Name = profile.First(p => p.Setting == "name").Value,
+                Title = profile.First(p => p.Setting == "title").Value,
+                Avatar = profile.First(p => p.Setting == "avatar").Value,
+                Description = profile.First(p => p.Setting == "description").Value,
+                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value),
+                XP = (int)missions.Sum(m => m.Fear + m.Productiveness + m.Difficulty)
+            };
+            return View(new List<ProfileViewModel>() { model });
         }
 
-        // POST: Profiles/Edit/5
+        // GET: ProfileViewModels/Details/5
+        public IActionResult Details(int? id)
+        {
+            //TODO: add support for more than one profile
+            List<Profile> profile = _context.Profile.ToList();
+            ProfileViewModel model = new ProfileViewModel()
+            {
+                Id = 1,
+                Name = profile.First(p => p.Setting == "name").Value,
+                Title = profile.First(p => p.Setting == "title").Value,
+                Avatar = profile.First(p => p.Setting == "avatar").Value,
+                Description = profile.First(p => p.Setting == "description").Value,
+                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value)
+            };
+            return View(model);
+        }
+
+        // GET: ProfileViewModels/Edit/5
+        public IActionResult Edit(int? id)
+        {
+            List<Profile> profile = _context.Profile.ToList();
+            ProfileViewModel model = new ProfileViewModel()
+            {
+                Id = 1,
+                Name = profile.First(p => p.Setting == "name").Value,
+                Title = profile.First(p => p.Setting == "title").Value,
+                Avatar = profile.First(p => p.Setting == "avatar").Value,
+                Description = profile.First(p => p.Setting == "description").Value,
+                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value)
+            };
+            return View(model);
+        }
+
+        // POST: ProfileViewModels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Setting,Value")] Profile profile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Title,Avatar,Description,RewardPoints,XP")] ProfileViewModel profileViewModel)
         {
-            if (id != profile.Setting)
+            if (id != profileViewModel.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(profile);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProfileExists(profile.Setting))
+                List<Profile> profile = new List<Profile>()
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                        new Profile(){Setting="name",Value=profileViewModel.Name},
+                        new Profile(){Setting="title",Value=profileViewModel.Title},
+                        new Profile(){Setting="avatar",Value=profileViewModel.Avatar},
+                        new Profile(){Setting="description",Value=profileViewModel.Description},
+                        new Profile(){Setting="rewardPoints",Value=profileViewModel.RewardPoints.ToString()}
+                    };
+                foreach (var item in profile)
+                {
+                    _context.Update(item);
                 }
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(profile);
-        }
-
-        private bool ProfileExists(string id)
-        {
-            return _context.Profile.Any(e => e.Setting == id);
+            return View(profileViewModel);
         }
     }
 }

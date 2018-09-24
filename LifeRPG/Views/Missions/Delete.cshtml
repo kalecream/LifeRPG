@@ -1,0 +1,189 @@
+﻿@model LifeRPG.Models.Missions
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Missions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Completed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Difficulty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Productiveness)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Productiveness)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeUpdated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeUpdated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCompleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeCompleted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LevelCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelDone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LevelDone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Continuous)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Continuous)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Repetition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Repetition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IconAsset)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IconAsset)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Interval)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Interval)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DurationUnits)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DurationUnits)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RewardPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RewardPoints)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SeriesId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SeriesId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RelativePosition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RelativePosition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDueAtSpecificTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsDueAtSpecificTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HasReminders)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HasReminders)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HasLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HasLocation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

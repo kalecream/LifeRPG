@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using LifeRPG.ViewModels;
 
 namespace LifeRPG.Models
 {
@@ -252,5 +253,7 @@ namespace LifeRPG.Models
                 entity.Property(e => e.MissionId).HasColumnName("missionId");
             });
         }
+
+        public DbSet<LifeRPG.ViewModels.ProfileViewModel> ProfileViewModel { get; set; }
     }
 }
