@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LifeRPG
+namespace LifeRPG.Models
 {
     public partial class AndroidMetadata
     {
