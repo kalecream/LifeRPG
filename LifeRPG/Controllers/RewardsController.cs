@@ -23,7 +23,52 @@ namespace LifeRPG.Controllers
         {
             return View(await _context.Rewards.ToListAsync());
         }
-      
+
+        // GET: Rewards/Claim/5
+        public IActionResult Claim(int id, int profileId = 0)
+        {
+            //get Reward object
+            var reward = _context.Rewards.First(r => r.Id == id);
+            var points = _context.Profile.First(p=>p.Setting=="rewardPoints");//TODO: implement multiple profiles
+            if (reward == null || points == null) return NotFound();
+
+            //remove RP
+            points.Value = (int.Parse(points.Value) - (int?)reward.Cost ?? 0).ToString();            
+
+            //cost increment
+            if (reward.IsCostIncrementing > 0) reward.Cost += reward.CostIncrement;
+            //increment claim total
+            reward.ClaimTotal++;
+            //decrement available qty if not infinite
+            if (reward.QuantityAvailable > 0) reward.QuantityAvailable--;
+            //add to Inventory if appliccable
+            if (reward.AddsToInventory > 0)
+            {
+                Inventory inventory = _context.Inventory.FirstOrDefault(i => i.RewardId == id) ??
+                    new Inventory()
+                    {
+                        RewardId = id,
+                        Category = reward.Category,
+                        Description = reward.Description,
+                        Icon = reward.IconAsset,
+                        IsActive = 1,
+                        IsConsumable = 1,
+                        Name = reward.Name,
+                        QuantityAvailable = 0,
+                        QuantityConsumed = 0,
+                        TimeCreated = DateTime.Now.ToFileTimeUtc()
+                    };
+                inventory.QuantityAvailable++;
+                if (inventory.Id > 0)
+                    _context.Update(inventory);
+                else _context.Add(inventory);
+            }
+            _context.Update(reward);
+            _context.Update(points);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Rewards/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
