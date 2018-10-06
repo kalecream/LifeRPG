@@ -36,7 +36,7 @@ namespace LifeRPG
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<LifeRPGContext>(options =>
-                  options.UseSqlite("Data Source=C:\\Users\\khammack\\Desktop\\LifeRPG.db"));
+                  options.UseSqlite("Data Source=C:\\Users\\Public\\LifeRPG.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
