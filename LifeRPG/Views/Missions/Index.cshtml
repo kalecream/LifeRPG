@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.Parent)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
@@ -34,22 +31,7 @@
                 @Html.DisplayNameFor(model => model.Fear)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeUpdated)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TimeDue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeCompleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LevelCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LevelDone)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Continuous)
@@ -70,43 +52,23 @@
                 @Html.DisplayNameFor(model => model.Duration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DurationUnits)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RewardPoints)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeriesId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RelativePosition)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDueAtSpecificTime)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HasReminders)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HasLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
+                Location
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.Where(m => m.Completed < 1))
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Parent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -124,22 +86,17 @@
                 @Html.DisplayFor(modelItem => item.Fear)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TimeCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeUpdated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeDue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeCompleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LevelCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LevelDone)
+                @if (item.TimeDue != 0)
+                {
+                    @if (item.IsDueAtSpecificTime > 0)
+                    {
+                        @item.TimeDueDisplay
+                    }
+                    else
+                    {
+                        @item.TimeDueDisplay.ToShortDateString()
+                    }
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Continuous)
@@ -157,41 +114,28 @@
                 @Html.DisplayFor(modelItem => item.Interval)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationUnits)
+                @if (item.Duration > 0)
+                {
+                    @item.DurationDisplay
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RewardPoints)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeriesId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RelativePosition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDueAtSpecificTime)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.HasReminders)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HasLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
+                @if (item.HasLocation > 0)
+                {
+                    @(Html.DisplayFor(modelItem => item.Latitude)+", "+ Html.DisplayFor(modelItem => item.Longitude))
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

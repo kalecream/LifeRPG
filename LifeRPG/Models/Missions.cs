@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using LifeRPG.Utils;
 
 namespace LifeRPG.Models
 {
@@ -34,5 +36,16 @@ namespace LifeRPG.Models
         public long? HasLocation { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
+
+        [NotMapped]
+        public DateTime TimeCreatedDisplay => Utilities.ToDateTime(TimeCreated);
+        [NotMapped]
+        public DateTime TimeUpdatedDisplay => Utilities.ToDateTime(TimeUpdated);
+        [NotMapped]
+        public DateTime TimeDueDisplay => Utilities.ToDateTime(TimeDue);
+        [NotMapped]
+        public DateTime TimeCompletedDisplay => Utilities.ToDateTime(TimeCompleted);
+        [NotMapped]
+        public string DurationDisplay => Duration + (DurationUnits == 0 ? " minutes" : DurationUnits == 1 ? " hours" : "days");
     }
 }
