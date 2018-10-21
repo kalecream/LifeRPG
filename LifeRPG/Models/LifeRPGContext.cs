@@ -19,7 +19,7 @@ namespace LifeRPG.Models
         public virtual DbSet<AndroidMetadata> AndroidMetadata { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Missions> Missions { get; set; }
-        public virtual DbSet<Profile> Profile { get; set; }
+        //public virtual DbSet<Profile> Profile { get; set; }
         public virtual DbSet<Reminders> Reminders { get; set; }
         public virtual DbSet<Rewards> Rewards { get; set; }
         public virtual DbSet<SkillDetails> SkillDetails { get; set; }
@@ -163,18 +163,18 @@ namespace LifeRPG.Models
                 entity.Property(e => e.Title).HasColumnName("title");
             });
 
-            modelBuilder.Entity<Profile>(entity =>
-            {
-                entity.HasKey(e => e.Setting);
+            //modelBuilder.Entity<Profile>(entity =>
+            //{
+            //    entity.HasKey(e => e.Setting);
 
-                entity.ToTable("profile");
+            //    entity.ToTable("profile");
 
-                entity.Property(e => e.Setting)
-                    .HasColumnName("setting")
-                    .ValueGeneratedNever();
+            //    entity.Property(e => e.Setting)
+            //        .HasColumnName("setting")
+            //        .ValueGeneratedNever();
 
-                entity.Property(e => e.Value).HasColumnName("value");
-            });
+            //    entity.Property(e => e.Value).HasColumnName("value");
+            //});
 
             modelBuilder.Entity<Reminders>(entity =>
             {
@@ -262,7 +262,6 @@ namespace LifeRPG.Models
                 entity.Property(e => e.MissionId).HasColumnName("missionId");
             });
         }
-
-        public DbSet<LifeRPG.ViewModels.ProfileViewModel> ProfileViewModel { get; set; }
+        
     }
 }

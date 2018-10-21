@@ -22,51 +22,69 @@ namespace LifeRPG.Controllers
         // GET: ProfileViewModels
         public IActionResult Index()
         {
-            List<Profile> profile = _context.Profile.ToList();
+            List<Profiles> profiles = _context.Profiles.ToList();
             List<Missions> missions = _context.Missions.ToList();
-            ProfileViewModel model = new ProfileViewModel()
+            List<ProfileViewModel> model = new List<ProfileViewModel>();
+            foreach (Profiles p in profiles)
             {
-                Id = 1,
-                Name = profile.First(p => p.Setting == "name").Value,
-                Title = profile.First(p => p.Setting == "title").Value,
-                Avatar = profile.First(p => p.Setting == "avatar").Value,
-                Description = profile.First(p => p.Setting == "description").Value,
-                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value),
-                XP = (int)missions.Sum(m => m.Fear + m.Productiveness + m.Difficulty)
-            };
-            return View(new List<ProfileViewModel>() { model });
+                model.Add(new ProfileViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Title = p.Title,
+                    Avatar = p.Avatar,
+                    Description = p.Description,
+                    RewardPoints = p.RewardPoints,
+                    XP = (int)missions.Sum(m => m.Fear + m.Productiveness + m.Difficulty)
+                });
+            }            
+            return View(model);
         }
 
         // GET: ProfileViewModels/Details/5
         public IActionResult Details(int? id)
         {
-            //TODO: add support for more than one profile
-            List<Profile> profile = _context.Profile.ToList();
-            ProfileViewModel model = new ProfileViewModel()
+            Profiles profile = _context.Profiles.FirstOrDefault(p=>p.Id==id);
+            //TODO: add support for more than one profile in each table
+            List<Missions> missions = _context.Missions.ToList();
+            ProfileViewModel model = new ProfileViewModel();
+            if (profile != null)
             {
-                Id = 1,
-                Name = profile.First(p => p.Setting == "name").Value,
-                Title = profile.First(p => p.Setting == "title").Value,
-                Avatar = profile.First(p => p.Setting == "avatar").Value,
-                Description = profile.First(p => p.Setting == "description").Value,
-                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value)
-            };
+                model = new ProfileViewModel()
+                {
+                    Id = profile.Id,
+                    Name = profile.Name,
+                    Title = profile.Title,
+                    Avatar = profile.Avatar,
+                    Description = profile.Description,
+                    RewardPoints = profile.RewardPoints,
+                    XP = (int)missions.Sum(m => m.Fear + m.Productiveness + m.Difficulty)
+                };
+            }
+            
             return View(model);
         }
 
         // GET: ProfileViewModels/Edit/5
         public IActionResult Edit(int? id)
         {
-            List<Profile> profile = _context.Profile.ToList();
-            ProfileViewModel model = new ProfileViewModel()
+            Profiles profile = _context.Profiles.FirstOrDefault(p => p.Id == id);
+            //TODO: add support for more than one profile in each table
+            List<Missions> missions = _context.Missions.ToList();
+            ProfileViewModel model = new ProfileViewModel();
+            if (profile != null)
             {
-                Id = 1,
-                Name = profile.First(p => p.Setting == "name").Value,
-                Title = profile.First(p => p.Setting == "title").Value,
-                Avatar = profile.First(p => p.Setting == "avatar").Value,
-                Description = profile.First(p => p.Setting == "description").Value,
-                RewardPoints = int.Parse(profile.First(p => p.Setting == "rewardPoints").Value)
-            };
+                model = new ProfileViewModel()
+                {
+                    Id = profile.Id,
+                    Name = profile.Name,
+                    Title = profile.Title,
+                    Avatar = profile.Avatar,
+                    Description = profile.Description,
+                    RewardPoints = profile.RewardPoints,
+                    XP = (int)missions.Sum(m => m.Fear + m.Productiveness + m.Difficulty)
+                };
+            }
             return View(model);
         }
 
@@ -75,7 +93,7 @@ namespace LifeRPG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Title,Avatar,Description,RewardPoints,XP")] ProfileViewModel profileViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Title,Avatar,Description")] ProfileViewModel profileViewModel)
         {
             if (id != profileViewModel.Id)
             {
