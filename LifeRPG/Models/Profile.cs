@@ -12,5 +12,6 @@ namespace LifeRPG.Models
         public string Setting { get; set; }
         [DisplayName("Value")]
         public string Value { get; set; }
+
     }
 }

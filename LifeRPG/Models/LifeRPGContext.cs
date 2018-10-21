@@ -24,6 +24,7 @@ namespace LifeRPG.Models
         public virtual DbSet<Rewards> Rewards { get; set; }
         public virtual DbSet<SkillDetails> SkillDetails { get; set; }
         public virtual DbSet<Skills> Skills { get; set; }
+        public virtual DbSet<Profiles> Profiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +36,14 @@ namespace LifeRPG.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Profiles>(entity =>
+            {
+                entity.HasKey("Id");
+                entity.ToTable("Profiles");
+
+            });
+            
+
             modelBuilder.Entity<AndroidMetadata>(entity =>
             {
                 entity.HasKey(e => e.Locale);
