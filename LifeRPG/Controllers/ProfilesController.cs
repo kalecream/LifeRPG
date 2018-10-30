@@ -102,18 +102,16 @@ namespace LifeRPG.Controllers
 
             if (ModelState.IsValid)
             {
-                List<Profile> profile = new List<Profile>()
-                    {
-                        new Profile(){Setting="name",Value=profileViewModel.Name},
-                        new Profile(){Setting="title",Value=profileViewModel.Title},
-                        new Profile(){Setting="avatar",Value=profileViewModel.Avatar},
-                        new Profile(){Setting="description",Value=profileViewModel.Description},
-                        new Profile(){Setting="rewardPoints",Value=profileViewModel.RewardPoints.ToString()}
-                    };
-                foreach (var item in profile)
+                Profiles profile = new Profiles()
                 {
-                    _context.Update(item);
-                }
+                    Id = profileViewModel.Id,
+                    Name = profileViewModel.Name,
+                    Title = profileViewModel.Title,
+                    Avatar = profileViewModel.Avatar,
+                    Description = profileViewModel.Description,
+                    RewardPoints = profileViewModel.RewardPoints
+                };
+                _context.Update(profile);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));

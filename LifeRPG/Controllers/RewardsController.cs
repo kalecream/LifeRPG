@@ -29,11 +29,11 @@ namespace LifeRPG.Controllers
         {
             //get Reward object
             var reward = _context.Rewards.First(r => r.Id == id);
-            var points = _context.Profile.First(p=>p.Setting=="rewardPoints");//TODO: implement multiple profiles
-            if (reward == null || points == null) return NotFound();
+            var profile = _context.Profiles.FirstOrDefault(p => p.Id == profileId);
+            if (reward == null || profile == null) return NotFound();
 
             //remove RP
-            points.Value = (int.Parse(points.Value) - (int?)reward.Cost ?? 0).ToString();            
+            profile.RewardPoints = profile.RewardPoints - (int?)reward.Cost ?? 0;            
 
             //cost increment
             if (reward.IsCostIncrementing > 0) reward.Cost += reward.CostIncrement;
@@ -64,7 +64,7 @@ namespace LifeRPG.Controllers
                 else _context.Add(inventory);
             }
             _context.Update(reward);
-            _context.Update(points);
+            _context.Update(profile);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
